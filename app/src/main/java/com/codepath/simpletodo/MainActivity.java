@@ -1,5 +1,6 @@
 package com.codepath.simpletodo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,13 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    //a numeric code to identify the edit activity
+    public final static int EDIT_REUQEST_CODE=20;
+
+    //keys used for passing data between activities
+    public final static String ITEM_TEXT="itemText";
+    public final static String ITEM_POSITION="itemPosition";
 
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
@@ -62,6 +70,20 @@ public class MainActivity extends AppCompatActivity {
                 itemsAdapter.notifyDataSetChanged();
                 writeItems();
                 return true;
+            }
+        });
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //create new activity
+                Intent i=new Intent(MainActivity.this, EditItemActivity.class);
+                //pass the data being added
+                i.putExtra(ITEM_TEXT,items.get(position));
+                i.putExtra(ITEM_POSITION,position);
+                //display the activity
+                startActivityForResult(i, EDIT_REUQEST_CODE);
+
             }
         });
 
