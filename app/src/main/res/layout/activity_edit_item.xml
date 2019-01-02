@@ -7,7 +7,7 @@
     tools:context=".EditItemActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etItemText"
         android:layout_width="415dp"
         android:layout_height="43dp"
         android:ems="10"
@@ -23,7 +23,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="onSaveItem"
         android:text="Save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/etItemText" />
 </android.support.constraint.ConstraintLayout>

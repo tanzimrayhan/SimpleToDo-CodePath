@@ -2,6 +2,7 @@ package com.codepath.simpletodo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -88,6 +89,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK && requestCode==EDIT_REUQEST_CODE){
+            //extract updated item text from result intent extras
+            String updatedItem=data.getExtras().getString(ITEM_TEXT);
+            int position=data.getExtras().getInt(ITEM_POSITION);
+
+            //update the models
+            items.set(position, updatedItem);
+            itemsAdapter.notifyDataSetChanged();
+            writeItems();
+
+            Toast.makeText(this,"Item updated successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private File getDataFile(){
         return new File(getFilesDir(), "todo.txt");
     }
